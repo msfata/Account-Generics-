@@ -1,0 +1,34 @@
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+public class Account<T> {
+
+	private T balance;
+
+	@SuppressWarnings("unchecked")
+	public T getBalance() {
+		NumberFormat formatter = new DecimalFormat("#.00");
+		return (T) formatter.format(balance);
+	}
+
+	public void setBalance(T balance) {
+		this.balance = balance;
+	}
+
+	public void transfere(Account<Double> from, Account<Double> to, Double amount) {
+		from.balance -= amount;
+		to.balance += amount;
+	}
+
+	public static void main(String[] args) {
+		Account<Double> currentAccount = new Account<Double>();
+		currentAccount.setBalance(100.00);
+
+		Account<Double> savingAccount = new Account<Double>();
+		savingAccount.setBalance(200.55);
+
+		savingAccount.transfere(savingAccount, currentAccount, 100.55);
+
+		System.out.println(savingAccount.getBalance());
+	}
+}
